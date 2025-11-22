@@ -39,6 +39,7 @@ header {
     letter-spacing: 6px; /* Espaciado de lujo */
     font-weight: 900;
     background: linear-gradient(to right, #fff, #aaa);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -176,46 +177,62 @@ header {
 .producto-card:hover::before { opacity: 1; }
 .producto-card:hover::after { opacity: 1; transform: translateY(0); }
 
-
-/* 5. MODAL (FICHA TÉCNICA) */
+/* 5. MODAL (FICHA TÉCNICA) - VERSIÓN FLEXIBLE */
 .modal {
     display: none; 
     position: fixed; 
     z-index: 2000; 
     left: 0; top: 0; 
     width: 100%; height: 100%; 
-    background-color: rgba(0,0,0,0.95); /* Fondo casi negro total */
-    backdrop-filter: blur(10px);
+    background-color: rgba(0,0,0,0.95); 
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
 }
+
+@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
 .modal-content {
     background-color: #121212;
-    margin: 2vh auto;
+    margin: 2vh auto; 
     width: 95%;
-    height: 95vh; /* Ocupa casi toda la altura */
+    height: 92vh; /* Altura fija casi total */
     max-width: 1200px;
-    display: grid;
-    grid-template-columns: 60% 40%; /* Más espacio a la foto */
+    position: relative;
     box-shadow: 0 0 50px rgba(0,0,0,1);
     border: 1px solid #333;
-    animation: zoomIn 0.3s ease;
+    display: flex; 
+    flex-direction: column;
+    overflow: hidden; /* Importante para redondear bordes si quisieras */
 }
-
-@keyframes zoomIn { from {transform: scale(0.95); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 
 .cerrar {
     position: absolute;
-    right: 20px; top: 10px;
-    font-size: 30px;
+    right: 20px; top: 15px;
+    font-size: 35px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 100;
     color: #fff;
+    line-height: 1;
+    background: rgba(0,0,0,0.5); /* Fondo oscuro para que se vea siempre */
+    width: 40px; height: 40px;
+    text-align: center;
+    border-radius: 50%;
     transition: 0.3s;
 }
-.cerrar:hover { color: #ff4444; transform: rotate(90deg); }
+.cerrar:hover { background: #ff4444; transform: rotate(90deg); }
 
-/* Layout del Modal */
+/* LAYOUT DIVIDIDO */
+.modal-layout {
+    display: flex; /* Usamos Flexbox en lugar de Grid para mejor control */
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+/* LADO IZQUIERDO: GALERÍA */
 .modal-galeria {
+    width: 60%;
+    background: #000;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -223,90 +240,148 @@ header {
 
 #modal-img-principal {
     width: 100%;
-    height: 75%; /* Foto principal grande */
-    object-fit: cover;
+    flex-grow: 1; /* Ocupa todo el espacio disponible */
+    height: 0; /* Truco para que flex-grow funcione bien */
+    object-fit: cover; /* La foto se adapta sin deformarse */
+    object-position: center;
 }
 
 .modal-grid-fotos {
-    height: 25%;
+    height: 160px; /* Altura fija para las miniaturas */
+    flex-shrink: 0; /* No permitimos que se encoja */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 1px;
+    gap: 2px;
+    background: #1a1a1a;
+    padding-top: 2px;
 }
 
+.modal-grid-fotos img {
+    width: 100%;
+    height: 100%;
+    /* VOLVEMOS A COVER: Rellena todo el cuadro */
+    object-fit: cover; 
+    /* LO CENTRAMOS: El recorte se hará por igual a los lados, salvando lo importante */
+    object-position: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+/* Al pasar el mouse, que recupere el color y se vea un borde blanco */
+.modal-grid-fotos img:hover { opacity: 1; outline: 2px solid #fff; z-index: 1; }
+
+/* LADO DERECHO: INFORMACIÓN */
 .modal-info {
-    padding: 50px;
-    overflow-y: auto; /* Scroll solo en el texto si es muy largo */
+    width: 40%;
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* ESTO ES LA CLAVE: */
+    overflow-y: auto; /* Si el texto es largo, aparece scroll SOLO AQUÍ */
+    height: 100%; 
 }
 
 #modal-titulo { 
-    font-size: 2.5rem; 
-    margin-bottom: 10px;
+    font-size: 2.2rem; 
+    margin-bottom: 5px;
     letter-spacing: 1px;
+    line-height: 1.1;
+    color: #fff;
 }
 
 #modal-cat { 
     color: #666; 
     font-size: 0.8rem; 
     letter-spacing: 4px; 
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px;
 }
 
+/* Botón WhatsApp */
 .btn-ws {
-    background: transparent;
-    color: #fff;
-    border: 1px solid #fff;
+    background: #fff; /* Fondo blanco para resaltar */
+    color: #000;
     text-decoration: none;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
-    font-weight: 700;
-    letter-spacing: 3px;
-    margin: 30px 0;
-    transition: 0.4s;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin: 10px 0 30px 0;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-size: 0.9rem;
 }
 
 .btn-ws:hover { 
-    background: #fff; 
-    color: #000;
+    background: #ccc; 
+    transform: translateY(-2px);
 }
 
+/* Tallas */
+.tallas-container h3, .descripcion-container h3 {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tags-tallas { margin-bottom: 30px; }
 .tags-tallas span {
     display: inline-block;
-    border: 1px solid #333;
-    color: #888;
-    padding: 10px 15px;
-    margin-right: 10px;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 10px 20px;
+    margin-right: 5px;
     font-size: 0.9rem;
-    transition: 0.3s;
+    cursor: default;
 }
-.tags-tallas span:hover { border-color: #fff; color: #fff; }
 
 #modal-desc {
     line-height: 1.8;
     color: #aaa;
     white-space: pre-wrap;
     font-size: 0.95rem;
-    margin-top: 20px;
 }
 
-/* RESPONSIVE (Celulares) */
+/* RESPONSIVE (CELULARES) */
 @media (max-width: 900px) {
-    header { flex-direction: column; gap: 20px; padding: 20px; }
-    .hero-content h2 { font-size: 2.5rem; }
-    
     .modal-content { 
-        display: flex; 
-        flex-direction: column; 
-        height: auto; 
-        margin: 0; 
-        width: 100%; 
-        min-height: 100vh;
+        height: 100vh; /* Pantalla completa */
+        width: 100%;
+        margin: 0;
+        border: none;
     }
     
-    #modal-img-principal { height: 50vh; }
-    .modal-info { padding: 30px 20px; }
-    .grid-productos { gap: 10px; padding: 10px; grid-template-columns: 1fr 1fr;}
+    .modal-layout { 
+        flex-direction: column; /* Uno encima de otro */
+        overflow-y: auto; /* Scroll general para toda la página modal */
+    }
+    
+    .modal-galeria { 
+        width: 100%; 
+        height: auto; /* Altura automática según contenido */
+        flex-shrink: 0;
+    }
+    
+    #modal-img-principal { 
+        height: 50vh; /* Mitad de la pantalla para la foto */
+        flex-grow: 0;
+    }
+    
+    .modal-grid-fotos {
+        height: 80px; /* Miniaturas más pequeñas en celular */
+    }
+    
+    .modal-info { 
+        width: 100%;
+        height: auto; /* Altura automática para leer todo */
+        overflow-y: visible;
+        padding: 30px 20px 80px 20px; /* Padding extra abajo para que no se corte el final */
+    }
+
+    .cerrar {
+        top: 10px; right: 10px;
+    }
 }
