@@ -17,6 +17,7 @@ const productos = [
         id: 'gorra-1',
         categoria: 'gorra',
         nombre: "Gorra Premium Cadillac",
+        agotado: true,
         descripcion: `
 Gorra Premium Cadillac - Ajustable Snapback y Estilo Distinguido.
 

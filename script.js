@@ -14,12 +14,23 @@ function mostrarProductos(lista) {
     lista.forEach(prod => {
         const div = document.createElement('div');
         div.classList.add('producto-card');
-        // Al hacer click, abrimos el modal con este producto
+        
+        // LOGICA DE AGOTADO
+        let htmlAgotado = '';
+        if (prod.agotado === true) {
+            div.classList.add('agotado-activo'); // Clase extra para CSS
+            htmlAgotado = `
+                <div class="agotado-overlay">
+                    <span class="texto-agotado">SOLD OUT</span>
+                </div>
+            `;
+        }
+
         div.onclick = () => abrirModal(prod);
         
         div.innerHTML = `
             <img src="${prod.fotos[0]}" alt="${prod.nombre}">
-        `;
+            ${htmlAgotado} `;
         galeria.appendChild(div);
     });
 }
