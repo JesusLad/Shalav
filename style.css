@@ -1,0 +1,312 @@
+/* =========================================
+   DISEÑO PREMIUM - SHALAV
+   ========================================= */
+
+/* 1. BASES Y TIPOGRAFÍA */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    /* Fondo con degradado sutil para dar profundidad */
+    background: radial-gradient(circle at top center, #2b2b2b 0%, #121212 80%);
+    background-attachment: fixed; /* El fondo se queda quieto al hacer scroll */
+    color: #f5f5f5;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+h1, h2, h3, .btn-ws {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+}
+
+/* 2. HEADER (Menú con efecto cristal) */
+header {
+    padding: 30px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* Efecto Glassmorphism (Vidrio ahumado) */
+    background: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    font-size: 1.8rem;
+    letter-spacing: 6px; /* Espaciado de lujo */
+    font-weight: 900;
+    background: linear-gradient(to right, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Botones de filtro más elegantes */
+.filtros { display: flex; gap: 10px; }
+
+.filtro-btn {
+    background: transparent;
+    border: none;
+    color: #666;
+    padding: 5px 0;
+    cursor: pointer;
+    transition: 0.4s;
+    font-family: 'Roboto';
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.filtro-btn::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 1px;
+    background: #fff;
+    transition: width .3s;
+}
+
+.filtro-btn:hover, .filtro-btn.activo {
+    color: #fff;
+}
+
+.filtro-btn:hover::after, .filtro-btn.activo::after {
+    width: 100%;
+}
+
+/* 3. SECCIÓN HERO (La Bienvenida) */
+.hero-section {
+    height: 60vh; /* Ocupa el 60% de la altura de la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: fadeUp 1.5s ease-out;
+}
+
+.hero-content h2 {
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -2px;
+}
+
+.hero-content p {
+    color: #888;
+    letter-spacing: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.linea-deco {
+    width: 50px;
+    height: 2px;
+    background: #fff;
+    margin: 0 auto;
+}
+
+/* 4. GRID DE PRODUCTOS */
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px; /* Más espacio entre productos */
+    padding: 40px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Tarjeta Mejorada */
+.producto-card {
+    position: relative;
+    cursor: pointer;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    transition: transform 0.4s;
+    animation: aparecer 0.8s ease-out forwards;
+    opacity: 0; /* Inicia invisible para la animación */
+}
+
+/* Animación escalonada (opcional, simple aquí) */
+@keyframes aparecer { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(20px); } }
+
+.producto-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+    filter: grayscale(20%); /* Un poco desaturado para look editorial */
+}
+
+/* Overlay con Nombre al pasar mouse */
+.producto-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    opacity: 0;
+    transition: 0.4s;
+    z-index: 1;
+}
+
+.producto-card::after {
+    /* Truco para mostrar texto "VER DETALLES" */
+    content: 'VER DETALLES';
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Roboto';
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.4s;
+    z-index: 2;
+}
+
+.producto-card:hover img {
+    transform: scale(1.1);
+    filter: grayscale(0%); /* Recupera color al hover */
+}
+
+.producto-card:hover::before { opacity: 1; }
+.producto-card:hover::after { opacity: 1; transform: translateY(0); }
+
+
+/* 5. MODAL (FICHA TÉCNICA) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0; top: 0; 
+    width: 100%; height: 100%; 
+    background-color: rgba(0,0,0,0.95); /* Fondo casi negro total */
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    background-color: #121212;
+    margin: 2vh auto;
+    width: 95%;
+    height: 95vh; /* Ocupa casi toda la altura */
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 60% 40%; /* Más espacio a la foto */
+    box-shadow: 0 0 50px rgba(0,0,0,1);
+    border: 1px solid #333;
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn { from {transform: scale(0.95); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+.cerrar {
+    position: absolute;
+    right: 20px; top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10;
+    color: #fff;
+    transition: 0.3s;
+}
+.cerrar:hover { color: #ff4444; transform: rotate(90deg); }
+
+/* Layout del Modal */
+.modal-galeria {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#modal-img-principal {
+    width: 100%;
+    height: 75%; /* Foto principal grande */
+    object-fit: cover;
+}
+
+.modal-grid-fotos {
+    height: 25%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+}
+
+.modal-info {
+    padding: 50px;
+    overflow-y: auto; /* Scroll solo en el texto si es muy largo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#modal-titulo { 
+    font-size: 2.5rem; 
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+#modal-cat { 
+    color: #666; 
+    font-size: 0.8rem; 
+    letter-spacing: 4px; 
+    margin-bottom: 30px;
+}
+
+.btn-ws {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    text-decoration: none;
+    padding: 20px;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin: 30px 0;
+    transition: 0.4s;
+}
+
+.btn-ws:hover { 
+    background: #fff; 
+    color: #000;
+}
+
+.tags-tallas span {
+    display: inline-block;
+    border: 1px solid #333;
+    color: #888;
+    padding: 10px 15px;
+    margin-right: 10px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+.tags-tallas span:hover { border-color: #fff; color: #fff; }
+
+#modal-desc {
+    line-height: 1.8;
+    color: #aaa;
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+    margin-top: 20px;
+}
+
+/* RESPONSIVE (Celulares) */
+@media (max-width: 900px) {
+    header { flex-direction: column; gap: 20px; padding: 20px; }
+    .hero-content h2 { font-size: 2.5rem; }
+    
+    .modal-content { 
+        display: flex; 
+        flex-direction: column; 
+        height: auto; 
+        margin: 0; 
+        width: 100%; 
+        min-height: 100vh;
+    }
+    
+    #modal-img-principal { height: 50vh; }
+    .modal-info { padding: 30px 20px; }
+    .grid-productos { gap: 10px; padding: 10px; grid-template-columns: 1fr 1fr;}
+}

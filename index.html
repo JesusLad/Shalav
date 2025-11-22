@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Exclusivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1 class="logo">SHALAV</h1>
+        <nav class="filtros">
+            <button class="filtro-btn activo" onclick="filtrar('todo')">Ver Todo</button>
+            <button class="filtro-btn" onclick="filtrar('gorra')">Gorras</button>
+            <button class="filtro-btn" onclick="filtrar('playera')">Playeras</button>
+        </nav>
+    </header>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2>STREETWEAR <br> REDEFINED</h2>
+            <p>Colección Exclusiva 2025</p>
+            <div class="linea-deco"></div>
+        </div>
+    </section>
+
+    <main id="galeria" class="grid-productos">
+        </main>
+
+    <div id="modal-producto" class="modal">
+        <div class="modal-content">
+            <span class="cerrar">&times;</span>
+            
+            <div class="modal-layout">
+                <div class="modal-galeria">
+                    <img id="modal-img-principal" src="" alt="Principal">
+                    <div class="modal-grid-fotos">
+                        <img id="modal-thumb-1" onclick="cambiarFoto(this)" src="">
+                        <img id="modal-thumb-2" onclick="cambiarFoto(this)" src="">
+                        <img id="modal-thumb-3" onclick="cambiarFoto(this)" src="">
+                    </div>
+                </div>
+
+                <div class="modal-info">
+                    <h2 id="modal-titulo">Nombre del Producto</h2>
+                    <p class="modal-categoria" id="modal-cat">Categoría</p>
+                    
+                    <a id="btn-whatsapp" href="#" target="_blank" class="btn-ws">
+                        CONSULTAR / COMPRAR EN WHATSAPP
+                    </a>
+
+                    <div class="tallas-container">
+                        <h3>Tallas Disponibles:</h3>
+                        <div id="modal-tallas" class="tags-tallas">
+                            </div>
+                    </div>
+
+                    <div class="descripcion-container">
+                        <h3>Detalles</h3>
+                        <p id="modal-desc">Descripción del producto...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
