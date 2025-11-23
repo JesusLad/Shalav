@@ -138,6 +138,7 @@ header {
     object-fit: cover;
     transition: transform 0.7s ease;
     filter: grayscale(20%); /* Un poco desaturado para look editorial */
+    object-position: top center;
 }
 
 /* Overlay con Nombre al pasar mouse */
@@ -243,7 +244,7 @@ header {
     flex-grow: 1; /* Ocupa todo el espacio disponible */
     height: 0; /* Truco para que flex-grow funcione bien */
     object-fit: cover; /* La foto se adapta sin deformarse */
-    object-position: center;
+    object-position: top;
 }
 
 .modal-grid-fotos {
