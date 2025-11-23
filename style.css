@@ -436,6 +436,6 @@ footer {
 }
 
 .contador-container img {
-    height: 20px; /* Tamaño discreto */
-    filter: invert(1); /* Invierte colores si sale negro, para que se vea en fondo oscuro */
+    height: 20px;
+    opacity: 0.7; /* Le bajamos un poco el brillo para que no destaque más que la ropa */
 }
