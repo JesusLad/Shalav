@@ -60,6 +60,7 @@ Fabricada con materiales de exquisita calidad para una durabilidad y comodidad s
         id: 'gorra-4',
         categoria: 'gorra',
         nombre: "Gorra Premium Super Mario",
+        agotado: true,
         descripcion: `
 Gorra Premium Super Mario - Ajustable Snapback
 
@@ -88,6 +89,7 @@ Ideal para fans de Naruto, esta gorra no solo ofrece un estilo audaz, sino tambi
         id: 'gorra-6',
         categoria: 'gorra',
         nombre: "Gorra Premium Piratas One Piece",
+        agotado: true,
         descripcion: `
 Gorra Premium One Piece: Unisex, ajustable con snapback.
 
@@ -320,4 +322,5 @@ Detalle en la manga con el logo que marca la diferencia. Corte limpio que queda 
         tallas: ["M", "G", "EG"],
         fotos: ["img/playera18_main.jpg", "img/playera18_flat.jpg", "img/playera18_zoom.jpg", "img/playera18_sleeve.jpg"]
     }
+
 ];
